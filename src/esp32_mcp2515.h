@@ -111,4 +111,7 @@ class MCP2515 : public CAN_COMMON
     // Definitions for software buffers
 };
 
+//create an automatic first copy because old code expects it
+extern MCP2515 CAN1;
+
 #endif  // ESP32_MCP2515_h
