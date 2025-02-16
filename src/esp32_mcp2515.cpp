@@ -1,5 +1,5 @@
 /*
-  MCP2515.cpp - Library for Microchip MCP2515 CAN Controller
+  esp32_mcp2515.cpp - Library for Microchip MCP2515 CAN Controller
   
   Author: David Harding
   Maintainer: RechargeCar Inc (http://rechargecar.com)
@@ -28,12 +28,12 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifdef MCP2515_h
+#ifdef ESP32_MCP2515_h
 
 #include "Arduino.h"
 #include "SPI.h"
-#include "mcp2515.h"
-#include "mcp2515_defs.h"
+#include "esp32_mcp2515.h"
+#include "esp32_mcp2515_defs.h"
 #include "esp32_can.h"
 
 SPISettings mcpSPISettings(8000000, MSBFIRST, SPI_MODE0);
@@ -1011,4 +1011,4 @@ void MCP2515::handleFrameDispatch(CAN_FRAME *frame, int filterHit)
   xQueueSendFromISR(rxQueue, frame, NULL);
 }
 
-#endif
+#endif  // ESP32_MCP2515_h

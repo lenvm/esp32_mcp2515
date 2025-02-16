@@ -1,5 +1,5 @@
 /*
-  MCP2515_defs.h - Library for Microchip MCP2515 CAN Controller
+  esp32_mcp2515_defs.h - Library for Microchip MCP2515 CAN Controller
   
   Author: David Harding
   Maintainer: RechargeCar Inc (http://rechargecar.com)
@@ -28,8 +28,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef MCP2515_defs_h
-#define MCP2515_defs_h
+#ifndef ESP32_MCP2515_defs_h
+#define ESP32_MCP2515_defs_h
 
 #include "Arduino.h"
 
@@ -220,4 +220,4 @@
 #define TXB2            0x04
 #define TXB_ALL			TXB0 | TXB1 | TXB2
 
-#endif
+#endif  // ESP32_MCP2515_defs_h
