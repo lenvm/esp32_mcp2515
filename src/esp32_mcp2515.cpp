@@ -28,13 +28,14 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifdef ESP32_MCP2515_h
-
 #include "Arduino.h"
 #include "SPI.h"
 #include "esp32_mcp2515.h"
 #include "esp32_mcp2515_defs.h"
-#include "esp32_can.h"
+#include "../../esp32_can/src/esp32_can.h"
+#include "../../../../config_mcp251x.h"
+
+MCP2515 __attribute__((weak)) CAN1(PIN_CAN1_CS, PIN_CAN1_INT);
 
 SPISettings mcpSPISettings(8000000, MSBFIRST, SPI_MODE0);
 
@@ -244,9 +245,9 @@ int MCP2515::Init(uint32_t CAN_Bus_Speed, uint8_t Freq, uint8_t SJW) {
 
 bool MCP2515::_init(uint32_t CAN_Bus_Speed, uint8_t Freq, uint8_t SJW, bool autoBaud) {
 
-  SPI.begin(SCK, MISO, MOSI, SS);       //Set up Serial Peripheral Interface Port for CAN2
+  SPI.begin(PIN_MCP2515_SCK, PIN_MCP2515_MISO, PIN_MCP2515_MOSI);  // Set up Serial Peripheral Interface Port for CAN1
   SPI.setClockDivider(SPI_CLOCK_DIV32);
-  SPI.setDataMode(SPI_MODE0);
+  SPI.setDataMode(SPI_MODE0);  // SPI_MODE0 (leading edge Sample rising, trailing edge Setup falling), SPI_MODE1 (leading edge Setup rising, trailing edge Sample falling), SPI_MODE2 (leading edge Sample falling, trailing edge Setup rising), SPI_MODE3 (leading edge Setup falling, trailing edge Sample rising).
   SPI.setBitOrder(MSBFIRST);
 
   if (!initializedResources) initializeResources();
@@ -1010,5 +1011,3 @@ void MCP2515::handleFrameDispatch(CAN_FRAME *frame, int filterHit)
 	//if none of the callback types caught this frame then queue it in the buffer
   xQueueSendFromISR(rxQueue, frame, NULL);
 }
-
-#endif  // ESP32_MCP2515_h
